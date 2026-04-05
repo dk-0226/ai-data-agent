@@ -12,11 +12,11 @@ from agents.agent import run_agent
 
 
 def main():
-    print("\n🚀 Starting AI Data Agent...\n")
+    print("\n Starting AI Data Agent...\n")
     
     result = run_agent()
     
-    print("\n✅ Final Result:\n")
+    print("\n Final Result:\n")
     print(result)
 
 
