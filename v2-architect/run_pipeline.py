@@ -17,4 +17,3 @@ for step in steps:
         break
 print("\n Pipeline execution completed")
 
-
