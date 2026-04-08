@@ -1,0 +1,20 @@
+app: 
+  name: ai-data-agent
+  version: 1.0
+
+paths:
+  data_dir: app/data
+  log_dir: logs
+  output_dir: outputs
+
+pipeline:
+  batch_size: config.pipeline.batch_size
+  retry_count: 3
+
+logging:
+  level: INFO
+
+model: 
+  provider: openai
+  model_name: gpt-4o-mini
+  temperature: 0.2

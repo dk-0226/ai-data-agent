@@ -13,7 +13,8 @@ steps = [
     "app/services/databricks/agent_layer.py"
 ]
 
-def run_pipeline():
+
+def run_pipeline(config):
     logger.info("Starting pipeline execution...")
 
     for step in steps:
@@ -26,17 +27,24 @@ def run_pipeline():
                 text=True
             )
 
-            # Log stdout
+            # -------------------------------
+            # Log STDOUT (normal logs)
+            # -------------------------------
             if result.stdout:
                 logger.info(f"{step} OUTPUT:\n{result.stdout}")
 
-            # Log stderr
-            if result.stderr:
-                logger.error(f"{step} ERROR:\n{result.stderr}")
-
+            # -------------------------------
+            # Handle FAILURE
+            # -------------------------------
             if result.returncode != 0:
-                logger.error(f"Step failed: {step}")
+                logger.error(f"{step} FAILED:\n{result.stderr}")
                 break
+
+            # -------------------------------
+            # Handle WARNINGS (stderr but success)
+            # -------------------------------
+            if result.stderr:
+                logger.warning(f"{step} WARNING:\n{result.stderr}")
 
             logger.info(f"Completed step: {step}")
 

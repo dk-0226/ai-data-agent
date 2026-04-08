@@ -22,7 +22,7 @@ print("API KEY Loaded:", os.getenv("OPENAI_API_KEY"))
 # -------------------------------
 # Import your agent
 # -------------------------------
-from agents.agent import run_agent
+from app.agents import run_agent
 
 
 def main():

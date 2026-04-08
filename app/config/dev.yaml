@@ -1,0 +1,5 @@
+pipeline:
+  batch_size: 10
+
+logging: 
+  level: DEBUG
