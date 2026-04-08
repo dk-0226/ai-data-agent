@@ -7,20 +7,28 @@ import os
 from app.utils.logger import get_logger
 logger = get_logger("bronze_layer")
 
-# Get project root
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-# Paths
-input_path = os.path.join(BASE_DIR, "app/data_lake/raw/data.csv")
-output_path = os.path.join(BASE_DIR, "app/data_lake/bronze/data.parquet")
+def run_bronze_layer(config):
+    # Get project root (UNCHANGED)
+    BASE_DIR = os.path.dirname(
+        os.path.dirname(
+            os.path.dirname(
+                os.path.dirname(os.path.abspath(__file__))
+            )
+        )
+    )
 
-logger.info("Starting Bronze Layer")
+    # Paths (UNCHANGED)
+    input_path = os.path.join(BASE_DIR, "app/data_lake/raw/data.csv")
+    output_path = os.path.join(BASE_DIR, "app/data_lake/bronze/data.parquet")
 
-# Read & Write
-df = pd.read_csv(input_path)
-logger.info(f"Read data from: {input_path}")
+    logger.info("Starting Bronze Layer")
 
-df.to_parquet(output_path, index=False)
-logger.info(f"Saved Bronze data to: {output_path}")
+    # Read & Write
+    df = pd.read_csv(input_path)
+    logger.info(f"Read data from: {input_path}")
 
-logger.info("Bronze layer completed successfully")
+    df.to_parquet(output_path, index=False)
+    logger.info(f"Saved Bronze data to: {output_path}")
+
+    logger.info("Bronze layer completed successfully")

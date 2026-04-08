@@ -7,28 +7,36 @@ import os
 from app.utils.logger import get_logger
 logger = get_logger("silver_layer")
 
-# Get project root
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-# Paths
-input_path = os.path.join(BASE_DIR, "app/data_lake/bronze/data.parquet")
-output_path = os.path.join(BASE_DIR, "app/data_lake/silver/data.parquet")
+def run_silver_layer(config):
+    # Get project root (UNCHANGED)
+    BASE_DIR = os.path.dirname(
+        os.path.dirname(
+            os.path.dirname(
+                os.path.dirname(os.path.abspath(__file__))
+            )
+        )
+    )
 
-logger.info("Starting Silver Layer")
+    # Paths (UNCHANGED)
+    input_path = os.path.join(BASE_DIR, "app/data_lake/bronze/data.parquet")
+    output_path = os.path.join(BASE_DIR, "app/data_lake/silver/data.parquet")
 
-df = pd.read_parquet(input_path)
-logger.info(f"Loaded data from: {input_path}")
+    logger.info("Starting Silver Layer")
 
-logger.info(f"Raw Data:\n{df}")
+    df = pd.read_parquet(input_path)
+    logger.info(f"Loaded data from: {input_path}")
 
-# Cleaning logic (UNCHANGED)
-clean_df = df.dropna(subset=["name"])
-clean_df = clean_df[clean_df["amount"] > 0]
+    logger.info(f"Raw Data:\n{df}")
 
-logger.info(f"Cleaned Data:\n{clean_df}")
+    # Cleaning logic (UNCHANGED)
+    clean_df = df.dropna(subset=["name"])
+    clean_df = clean_df[clean_df["amount"] > 0]
 
-# Save
-clean_df.to_parquet(output_path, index=False)
-logger.info(f"Saved Silver data to: {output_path}")
+    logger.info(f"Cleaned Data:\n{clean_df}")
 
-logger.info("Silver layer completed successfully")
+    # Save
+    clean_df.to_parquet(output_path, index=False)
+    logger.info(f"Saved Silver data to: {output_path}")
+
+    logger.info("Silver layer completed successfully")
