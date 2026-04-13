@@ -1,55 +1,40 @@
-import subprocess
-
 # -------------------------------
 # Logger
 # -------------------------------
 from app.utils.logger import get_logger
 logger = get_logger("pipeline")
 
-# Define pipeline steps
-steps = [
-    "app/services/databricks/bronze.py",
-    "app/services/databricks/silver.py",
-    "app/services/databricks/agent_layer.py"
-]
+# -------------------------------
+# Import Layers (NEW)
+# -------------------------------
+from app.services.databricks.bronze import run_bronze_layer
+from app.services.databricks.silver import run_silver_layer
+from app.services.databricks.agent_layer import run_agent_layer
 
 
 def run_pipeline(config):
     logger.info("Starting pipeline execution...")
 
-    for step in steps:
-        logger.info(f"Running step: {step}")
+    try:
+        # -------------------------------
+        # Bronze Layer
+        # -------------------------------
+        logger.info("Running Bronze Layer...")
+        run_bronze_layer(config)
 
-        try:
-            result = subprocess.run(
-                ["python", step],
-                capture_output=True,
-                text=True
-            )
+        # -------------------------------
+        # Silver Layer
+        # -------------------------------
+        logger.info("Running Silver Layer...")
+        run_silver_layer(config)
 
-            # -------------------------------
-            # Log STDOUT (normal logs)
-            # -------------------------------
-            if result.stdout:
-                logger.info(f"{step} OUTPUT:\n{result.stdout}")
+        # -------------------------------
+        # Agent Layer
+        # -------------------------------
+        logger.info("Running Agent Layer...")
+        run_agent_layer(config)
 
-            # -------------------------------
-            # Handle FAILURE
-            # -------------------------------
-            if result.returncode != 0:
-                logger.error(f"{step} FAILED:\n{result.stderr}")
-                break
-
-            # -------------------------------
-            # Handle WARNINGS (stderr but success)
-            # -------------------------------
-            if result.stderr:
-                logger.warning(f"{step} WARNING:\n{result.stderr}")
-
-            logger.info(f"Completed step: {step}")
-
-        except Exception as e:
-            logger.exception(f"Unexpected error in step: {step} | {str(e)}")
-            break
+    except Exception as e:
+        logger.exception(f"Pipeline failed: {str(e)}")
 
     logger.info("Pipeline execution completed")

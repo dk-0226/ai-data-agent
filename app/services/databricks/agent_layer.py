@@ -7,51 +7,65 @@ import os
 from app.utils.logger import get_logger
 logger = get_logger("agent_layer")
 
-# Get project root
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-# Paths
-input_path = os.path.join(BASE_DIR, "app/data_lake/silver/data.parquet")
-output_path = os.path.join(BASE_DIR, "app/data_lake/gold/insights.parquet")
+def run_agent_layer(config):
+    # Get project root (UNCHANGED)
+    BASE_DIR = os.path.dirname(
+        os.path.dirname(
+            os.path.dirname(
+                os.path.dirname(os.path.abspath(__file__))
+            )
+        )
+    )
 
-logger.info("Starting Agent Layer")
+    # Paths (UNCHANGED)
+    input_path = os.path.join(BASE_DIR, "app/data_lake/silver/data.parquet")
+    output_path = os.path.join(BASE_DIR, "app/data_lake/gold/insights.parquet")
 
-# Load data
-df = pd.read_parquet(input_path)
-logger.info(f"Loaded Silver data from: {input_path}")
+    logger.info("Starting Agent Layer")
 
-logger.info(f"Input Data:\n{df}")
+    # -------------------------------
+    # Load data
+    # -------------------------------
+    df = pd.read_parquet(input_path)
+    logger.info(f"Loaded Silver data from: {input_path}")
 
-# Agent Logic (UNCHANGED)
-def agent_analyze(data):
-    insights = []
+    logger.info(f"Input Data:\n{df}")
 
-    for row in data:
-        if row["amount"] > 150:
-            insights.append({
-                "id": row["id"],
-                "insight": "High value transaction"
-            })
-        else:
-            insights.append({
-                "id": row["id"],
-                "insight": "Normal transaction"
-            })
-    return insights
+    # -------------------------------
+    # Agent Logic (UNCHANGED)
+    # -------------------------------
+    def agent_analyze(data):
+        insights = []
 
-# Convert
-data = df.to_dict(orient='records')
+        for row in data:
+            if row["amount"] > 150:
+                insights.append({
+                    "id": row["id"],
+                    "insight": "High value transaction"
+                })
+            else:
+                insights.append({
+                    "id": row["id"],
+                    "insight": "Normal transaction"
+                })
+        return insights
 
-# Run agent
-insights = agent_analyze(data)
+    # Convert
+    data = df.to_dict(orient='records')
 
-# Convert back
-insights_df = pd.DataFrame(insights)
+    # Run agent
+    insights = agent_analyze(data)
 
-logger.info(f"Generated Insights:\n{insights_df}")
+    # Convert back
+    insights_df = pd.DataFrame(insights)
 
-# Save
-insights_df.to_parquet(output_path, index=False)
-logger.info(f"Saved Gold data to: {output_path}")
+    logger.info(f"Generated Insights:\n{insights_df}")
 
-logger.info("Agent layer completed successfully")
+    # -------------------------------
+    # Save
+    # -------------------------------
+    insights_df.to_parquet(output_path, index=False)
+    logger.info(f"Saved Gold data to: {output_path}")
+
+    logger.info("Agent layer completed successfully")
