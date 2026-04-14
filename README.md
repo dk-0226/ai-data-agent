@@ -1,178 +1,234 @@
-# 🤖 AI-Powered Self-Healing Data Pipeline Agent
+# 🤖 AI Data Agent — Multi-Agent GenAI System
 
-## 📌 Overview
+A modular **Agentic AI system** that evolved from a basic tool-based agent into a full **multi-agent RAG + orchestration + UI system**.
 
-This project demonstrates an **Agentic AI system** that can autonomously:
-
-* Detect failed data pipeline jobs
-* Analyze logs using LLM
-* Suggest fixes
-* Retry jobs
-
-🚀 It has been extended into an **architect-level data platform** simulating real-world systems like Databricks and Azure Data Factory.
+This project demonstrates a real-world progression from:
+> Tool-based AI → Data Architecture → GenAI → RAG systems → Multi-agent orchestration → Interactive AI application
 
 ---
 
-# 🏗️ Architecture
+# 📌 Table of Contents
 
-## 🔹 v1-basic (Agentic AI System)
+- [🎯 Project Overview](#-project-overview)
+- [🧠 System Evolution (v1 → v3)](#-system-evolution-v1--v3)
+- [🏗️ Architecture](#️-architecture)
+- [⚙️ Core Components](#️-core-components)
+- [🔄 How It Works](#-how-it-works)
+- [🚀 Quickstart](#-quickstart)
+- [📦 Installation](#-installation)
+- [📊 Features](#-features)
+- [🧪 Example Use Cases](#-example-use-cases)
+- [🔮 Future Improvements](#-future-improvements)
 
-```
+---
+
+# 🎯 Project Overview
+
+The **AI Data Agent** is a multi-agent system designed to intelligently process user queries by routing them to specialized agents.
+
+Instead of relying on a single LLM prompt, the system uses:
+
+- 🧠 Orchestrator Agent (decision layer)
+- 📚 RAG Agent (knowledge retrieval layer)
+- 🛠 Tool Agent (execution layer)
+- 🖥 Streamlit UI (interaction layer)
+
+---
+
+# 🧠 System Evolution (v1 → v3)
+
+This project evolved through multiple stages, gradually transforming from a basic agent system into a full multi-agent GenAI architecture.
+
+---
+
+## 🔹 v1 — Basic Agentic AI System
 User / Scheduler
-       ↓
-   AI Agent (LLM)
-       ↓
-   Tool Layer (APIs)
-       ↓
- Pipeline System (Simulated)
-       ↓
-   Memory Layer
-```
+↓
+AI Agent (LLM)
+↓
+Tool Layer (APIs)
+↓
+Pipeline System (Simulated)
+↓
+Memory Layer
+
+
+### ✨ Key Highlights
+- Autonomous AI agent for pipeline failure analysis  
+- LLM-powered log interpretation  
+- Self-healing retry mechanism  
+- Modular design (agents, tools, memory)  
 
 ---
 
-## 🔹 v2-architect (Enterprise Data Platform)
-
-```
+## 🔹 v2 — Enterprise Data Platform (Architectural Layer)
 ADF (Simulated Orchestration)
-        ↓
+↓
 Bronze Layer (Raw Data)
-        ↓
+↓
 Silver Layer (Cleaned Data)
-        ↓
+↓
 Agent Layer (AI Insights)
-        ↓
+↓
 Gold Layer (Business Output)
-```
+
+
+### ✨ Key Highlights
+- Medallion architecture (Bronze → Silver → Gold)  
+- Simulated Databricks-style processing layers  
+- ADF-like orchestration pipeline  
+- Agentic AI layer for intelligent insights  
+- End-to-end data pipeline execution  
 
 ---
 
-# 🧠 Key Features
+## 🔹 v3 — Multi-Agent GenAI System (Current)
+User Query
+↓
+Streamlit UI
+↓
+Orchestrator Agent
+                ↓
+┌───────────────┬───────────────┐
+↓                               ↓
+RAG Agent              Tool Agent
+┌───────────────┬───────────────┐
+                ↓                     
+        Response Aggregation Layer
+                ↓
+           Final Output
 
-### 🔹 v1-basic
 
-* Autonomous AI agent for pipeline failure analysis
-* LLM-powered log interpretation
-* Self-healing retry mechanism
-* Modular design (agents, tools, memory)
-
-### 🔹 v2-architect
-
-* Medallion architecture (Bronze → Silver → Gold)
-* Simulated Databricks processing layers
-* ADF-like orchestration pipeline
-* Agentic AI layer for intelligent insights
-* End-to-end data pipeline execution
+### ✨ Key Highlights
+- Multi-agent orchestration system  
+- RAG-based contextual reasoning  
+- Intelligent query routing  
+- Config-driven architecture  
+- Interactive Streamlit UI  
 
 ---
 
-# ⚙️ Tech Stack
+## 🚀 Evolution Summary
 
-* Python
-* LangChain
-* OpenAI
-* Pandas
-* Parquet (pyarrow)
-* Simulated Data Pipelines
+| Version | Focus Area | Key Capability |
+|--------|-----------|---------------|
+| v1 | Agentic AI | Tool-based autonomous system |
+| v2 | Data Architecture | Medallion + pipeline orchestration |
+| v3 | GenAI System | Multi-agent RAG + orchestration |
+
+---
+
+## 🧠 Key Insight
+
+This evolution reflects real-world system design thinking — starting from simple automation and gradually moving toward scalable AI-driven architectures.
+
+---
+
+## 🏗️ Architecture
+
+The system follows a multi-agent architecture where the Orchestrator dynamically routes queries to specialized agents.
+
+<p align="center">
+  <img src="assets/architecture.png" width="700"/>
+</p>
+
+---
+
+# ⚙️ Core Components
+
+## 🧠 Orchestrator Agent
+- Classifies user intent  
+- Routes query to correct agent  
+- Acts as decision-making layer  
+
+## 📚 RAG Agent
+- Retrieves context from knowledge base  
+- Uses embeddings + vector search  
+- Generates context-aware responses  
+
+## 🛠 Tool Agent
+- Executes utility-based tasks  
+- Handles action-oriented queries  
+- Extensible for APIs/tools  
+
+## 🖥 Streamlit UI
+- User interaction layer  
+- Sends queries to orchestrator  
+- Displays final responses  
 
 ---
 
 # 🔄 How It Works
 
-## 🔹 v1-basic (Agent Workflow)
-
-1. Fetch failed jobs
-2. Read logs
-3. Analyze failure
-4. Suggest fix
-5. Retry job
-
----
-
-## 🔹 v2-architect (Data Pipeline Flow)
-
-1. Ingest raw data (Bronze layer)
-2. Clean and validate data (Silver layer)
-3. Analyze data using AI agent (Agent layer)
-4. Generate insights (Gold layer)
-5. Orchestrate pipeline using simulated ADF
+1. User enters a query in Streamlit UI  
+2. Orchestrator Agent analyzes intent  
+3. System routes query:
+   - Knowledge → RAG Agent  
+   - Action → Tool Agent  
+4. Agent processes request  
+5. Response is aggregated and returned  
 
 ---
 
-# ▶️ Run Locally
+# 🚀 Quickstart
 
 ```bash
-git clone https://github.com/dk-0226/ai-data-agent.git
+# Clone repository
+git clone https://github.com/dk-0226/ai-data-agent
+
+# Move into project
 cd ai-data-agent
 
-# Create virtual environment
-python3 -m venv agent_env
-source agent_env/bin/activate
-
 # Install dependencies
-pip install -r v1-basic/requirements.txt
+pip install -r requirements.txt
 
-# Run v1 (Agent system)
-python v1-basic/main.py
+# Run Streamlit app
+streamlit run ui/streamlit_app.py
 
-# Run v2 (Full pipeline)
-python v2-architect/run_pipeline.py
-```
+📦 Installation
+Requirements
+Python 3.9+
+Streamlit
+OpenAI API key (if applicable)
+Vector DB (FAISS / equivalent if used)
 
----
+📊 Features
+🧠 Multi-Agent Architecture
+📚 RAG-based contextual reasoning
+🔀 Intelligent query routing
+🛠 Tool execution system
+⚙️ Config-driven design
+🪵 Logging & observability
+🖥 Streamlit interface
 
-# 📊 Sample Output
+🧪 Example Use Cases
+"What are the latest logs in system?"
+"Explain this dataset anomaly"
+"Run a diagnostic check"
+"Retrieve relevant knowledge from documents"
+"Execute tool-based operations"
 
-```
-Job failed due to schema mismatch
-Suggested fix: cast column to integer
-Retrying job...
+🔮 Future Improvements
+LangGraph-based orchestration upgrade
+Memory layer (long-term context retention)
+FastAPI backend for production deployment
+Docker-based deployment
+Agent evaluation + monitoring dashboard
 
----
+🧠 Key Engineering Insight
 
-🔹 Agent Insights:
-id | insight
-1  | Normal transaction
-2  | High value transaction
-```
+This project demonstrates the transition from:
 
----
+❌ Prompt Engineering
+✅ System-Level AI Architecture
 
-# 🌍 Real-World Mapping
+It emphasizes:
 
-| Your Project Component | Real System Equivalent     |
-| ---------------------- | -------------------------- |
-| run_pipeline.py        | Azure Data Factory         |
-| bronze.py              | Databricks Bronze Notebook |
-| silver.py              | Databricks Silver Notebook |
-| agent_layer.py         | AI/ML Processing Layer     |
-| data/ folders          | ADLS Gen2                  |
-| Agents                 | LLM-powered services       |
+modularity
+scalability
+separation of concerns
+production-ready design thinking
 
----
+👨‍💻 Author
 
-# 🚀 Project Evolution
-
-This project demonstrates a **progressive architecture approach**:
-
-* **v1-basic** → Working Agentic AI system
-* **v2-architect** → Enterprise-grade data platform design
-
-👉 This showcases both **implementation skills** and **architectural thinking**
-
----
-
-# 🔮 Future Enhancements
-
-* Databricks integration (real cluster)
-* Azure Data Factory pipeline triggers
-* FastAPI-based agent service
-* Real-time streaming (Kafka)
-* Streamlit dashboard for visualization
-* Multi-agent orchestration
-
----
-
-# 👨‍💻 Author
-
-**Dev Kishore**
+Built as part of an exploration into Agentic AI systems, RAG pipelines, and scalable AI architecture design.
