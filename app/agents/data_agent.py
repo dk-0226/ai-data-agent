@@ -17,7 +17,8 @@ logger.info("Initializing Data Agent...")
 # -------------------------------
 # Imports
 # -------------------------------
-from langchain.chat_models import ChatOpenAI
+# from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.agents import initialize_agent, Tool
 
 from app.services.orchestration.pipeline_tools import (
